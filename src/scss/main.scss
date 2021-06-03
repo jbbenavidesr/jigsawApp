@@ -8,6 +8,8 @@ body {
     margin: auto;
     gap: 1em;
     justify-content: center;
+    height: calc(512px + 3em);
+    width: calc(384px + 3em);
 }
 
 #puzzle {
@@ -15,20 +17,21 @@ body {
     display: flex;
     flex-wrap: wrap;
     margin: auto;
-    background-image: url("/img/jesus.jpg");
     height: 512px;
     width: 384px;
 }
 
 .piece {
-    background-size: cover;
+    background-image: url("/img/jesus.jpg");
+    width: 96px;
+    height: 128px;
 }
 
 .placeholder {
     background-color: #f2f2f2;
     outline: 1px solid #333;
-    width: 106px;
-    height: 165px;
+    width: 96px;
+    height: 128px;
     transition: 1s;
 }
 
@@ -65,4 +68,5 @@ body {
 .container {
     display: flex;
     flex-wrap: wrap;
+    gap: 2em;
 }
