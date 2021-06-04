@@ -50,5 +50,8 @@
     "bugs": {
         "url": "https://github.com/jbbenavidesr/jigsawapp/issues"
     },
-    "homepage": "https://github.com/jbbenavidesr/jigsawapp#readme"
+    "homepage": "https://github.com/jbbenavidesr/jigsawapp#readme",
+    "dependencies": {
+        "faunadb": "^4.3.0"
+    }
 }

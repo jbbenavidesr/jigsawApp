@@ -55,7 +55,29 @@ puzzleContainer.addEventListener("drop", function (event) {
         placedPieces.push(id);
         if (placedPieces.length === Nx * Ny) {
             document.body.classList.add("ganaste");
-            console.log(placedPieces);
+            fetch("/.netlify/functions/collectData", {
+                method: "POST",
+                body: JSON.stringify({
+                    Nx: Nx,
+                    Ny: Ny,
+                    placedOrder: placedPieces,
+                }),
+                headers: {
+                    "Content-type": "application/json",
+                },
+            })
+                .then(function (response) {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw response;
+                })
+                .then(function (data) {
+                    console.log(data);
+                })
+                .catch(function (error) {
+                    console.warn(error);
+                });
         }
     }
 });

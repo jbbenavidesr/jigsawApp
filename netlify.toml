@@ -1,3 +1,12 @@
 [build]
   command = "npm run build"
   publish = "dist"
+  
+[functions]
+  directory = "functions"
+
+[dev]
+  framework = "#custom"
+  command = "npm run server"
+  targetPort = 3000
+  
