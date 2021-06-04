@@ -7,7 +7,7 @@ const adminClient = new faunadb.Client({
 
 const saveJigsawData = async function (dataSet) {
     const data = {
-        data: dataSet,
+        data: JSON.parse(dataSet),
     };
 
     return adminClient
