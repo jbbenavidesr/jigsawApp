@@ -1,5 +1,67 @@
+@use "base/reset";
+
 body {
     font-family: Arial, Verdana, sans-serif;
+}
+
+img {
+    max-width: 100%;
+    object-fit: cover;
+}
+
+.visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: auto;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
+}
+
+.wrapper {
+    max-width: var(--wrap-width, 50rem);
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: 1rem;
+    padding-left: 1rem;
+
+    &--xl {
+        --wrap-width: 100%;
+    }
+}
+
+.flex {
+    display: flex;
+    gap: var(--flex-gap, 1em);
+}
+
+.auto-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--auto-grid-min-size, 16rem), 1fr));
+  grid-gap: 1rem;
+}
+
+.flow {
+    & > * + * {
+        margin-top: var(--flow-space, 1em);
+    }
+}
+
+.radio-image {
+    [type="radio"] {
+        @extend .visually-hidden;
+
+        + img {
+            cursor: pointer;
+        }
+
+        &:checked + img {
+            outline: 2px solid #f00;
+        }
+    }
 }
 
 #pieces {
@@ -32,7 +94,7 @@ body {
     outline: 1px solid #333;
     width: 96px;
     height: 128px;
-    transition: 1s;
+    transition: 0.5s;
 }
 
 .placeholder.hover {
@@ -63,10 +125,4 @@ body {
     #pieces {
         display: none;
     }
-}
-
-.container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2em;
 }
