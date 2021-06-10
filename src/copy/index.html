@@ -1,19 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es-CO">
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Jigsaw App</title>
+        <title>Rompecabezas</title>
         <link rel="stylesheet" href="css/main.min.css" />
     </head>
     <body>
-        <div class="container">
-            <div id="puzzle"></div>
-            <div id="pieces"></div>
-        </div>
-        <h1 id="message">You won!</h1>
+        <div class="site-wrapper">
+            <div class="wrapper flow" data-screen="intro">
+                <h1>Arma tu rompecabezas</h1>
 
+                <p>
+                    Este rompecabezas hace parte de una investigación que se está haciendo
+                    sobre los procesos de percolación en el proceso de armar un rompecabezas.
+                    Esta es una investigación estadística por lo que necesito la información de
+                    muchos rompecabezas. Al resolver este rompecabezas, además de pasar un buen rato,
+                    Ayudas al avance científico en temas super interesantes que no sirven para nada.
+                </p>
+
+                <form data-settings class="flow">
+                    <div class="auto-grid radio-image">
+                        <label for="img-1"><input type="radio" value="1.jpg" name="image-select" id="img-1" checked><img src="/img/1.jpg" alt=""></label>
+                        <label for="img-2"><input type="radio" value="2.jpg" name="image-select" id="img-2"><img src="/img/2.jpg" alt=""></label>
+                        <label for="img-3"><input type="radio" value="3.jpg" name="image-select" id="img-3"><img src="/img/3.jpg" alt=""></label>
+                        <label for="img-4"><input type="radio" value="4.jpg" name="image-select" id="img-4"><img src="/img/4.jpg" alt=""></label>
+                        <label for="img-5"><input type="radio" value="5.jpg" name="image-select" id="img-5"><img src="/img/5.jpg" alt=""></label>
+                        <label for="img-6"><input type="radio" value="6.png" name="image-select" id="img-6"><img src="/img/6.png" alt=""></label>
+                    </div>
+                    <button type="submit" class="btn">Empezar el juego</button>
+                </form>
+            </div>
+
+            <div class="wrapper wrapper--xl flex" data-screen="game">
+                <div class="container board" data-puzzle="solved"></div>
+                <div class="container pieces" data-puzzle="pieces"></div>
+            </div>
+        </div>
         <script src="/js/main.min.js"></script>
     </body>
 </html>
