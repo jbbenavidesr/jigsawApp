@@ -1,36 +1,62 @@
-let puzzleContainer = document.querySelector("#puzzle");
-let piecesContainer = document.querySelector("#pieces");
-let message = document.querySelector("#message");
+// Get elements from DOM
+let settingsForm = document.querySelector("[data-settings]");
+let puzzleContainer = document.querySelector("[data-puzzle='solved']");
+let piecesContainer = document.querySelector("[data-puzzle='pieces']");
+let message = document.querySelector(".message");
 
-let Nx = 4;
-let Ny = 4;
-let pieceWidth = 96;
-let pieceHeight = 128;
-let pieces = [];
+// Variables
+let Nx, Ny, pieceWidth, pieceHeight, imageFile;
 let placedPieces = [];
+let puzzleImage = new Image();
 
-for (let j = 0; j < Ny; j++) {
-    for (let i = 0; i < Nx; i++) {
-        // Create the piece and add to an array
-        let piece = document.createElement("div");
-        piece.classList.add("piece");
-        piece.id = j * Nx + i;
-        piece.style.backgroundPosition = `-${i * pieceWidth}px -${
-            j * pieceHeight
-        }px`;
-        piece.draggable = "true";
-        pieces.push(piece);
-        puzzleContainer.innerHTML += `<div class="placeholder" data-id="${
-            j * Nx + i
-        }"></div>`;
+// Functions
+let initPieces = function () {
+    let pieces = [];
+    for (let j = 0; j < Ny; j++) {
+        for (let i = 0; i < Nx; i++) {
+            // Create the piece and add to an array
+            let piece = document.createElement("div");
+            piece.classList.add("piece");
+            piece.id = j * Nx + i;
+            piece.style.width = pieceWidth + "px";
+            piece.style.height = pieceHeight + "px";
+            piece.style.backgroundImage = `url("${puzzleImage.src}")`;
+            piece.style.backgroundPosition = `-${i * pieceWidth}px -${
+                j * pieceHeight
+            }px`;
+            piece.draggable = "true";
+            pieces.push(piece);
+            puzzleContainer.innerHTML += `<div class="placeholder" data-id="${
+                j * Nx + i
+            }" style="width: ${pieceWidth}px; height: ${pieceHeight}px;"></div>`;
+        }
     }
-}
 
-while (pieces.length) {
-    const index = Math.floor(Math.random() * pieces.length);
+    while (pieces.length) {
+        const index = Math.floor(Math.random() * pieces.length);
 
-    piecesContainer.appendChild(...pieces.splice(index, 1));
-}
+        piecesContainer.appendChild(...pieces.splice(index, 1));
+    }
+};
+
+let submitHandler = function (event) {
+    event.preventDefault();
+    Nx = parseInt(event.target.elements.col.value);
+    Ny = parseInt(event.target.elements.row.value);
+    imageFile = event.target.elements["image-select"].value;
+    puzzleImage.src = `/img/${imageFile}`;
+
+    pieceWidth = puzzleImage.width / Nx;
+    pieceHeight = puzzleImage.height / Ny;
+
+    puzzleContainer.style.width = puzzleImage.width + "px";
+
+    document.body.classList.remove("intro");
+    initPieces();
+};
+
+// Add Event Listeners
+settingsForm.addEventListener("submit", submitHandler);
 
 piecesContainer.addEventListener("dragstart", function (event) {
     event.dataTransfer.setData("id", event.target.id);
@@ -61,6 +87,7 @@ puzzleContainer.addEventListener("drop", function (event) {
                     Nx: Nx,
                     Ny: Ny,
                     placedOrder: placedPieces,
+                    image: imageFile,
                 }),
                 headers: {
                     "Content-type": "application/json",
